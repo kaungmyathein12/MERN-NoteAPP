@@ -28,17 +28,17 @@ const UserProfile = (props) => {
   const [data, setData] = useState(itemData);
 
   const searchBar = (
-    <div className="mt-20 flex flex-row justify-start items-center">
-      <div className="border border-neutral-500 rounded-md rounded-r-none border-r-0 flex flex-row items-center">
+    <div className="mt-20 flex flex-row justify-start items-center gap-x-2">
+      <div className="border border-neutral-500 rounded-md flex flex-row items-center">
         <i className="ri-search-line ml-3 text-sm text-neutral-400"></i>
         <input
           type="text"
           placeholder="Search"
-          className="bg-transparent px-3 py-2 w-80 text-sm text-neutral-200  placeholder:text-neutral-400 outline-none"
+          className="bg-transparent px-3 py-2 w-64 text-sm text-neutral-200  placeholder:text-neutral-400 outline-none"
         />
       </div>
       <button
-        className=" border border-indigo-600 bg-indigo-600 hover:bg-indigo-700 transition-all px-4 py-2 rounded-md rounded-l-none text-sm font-medium"
+        className=" border border-indigo-600 bg-indigo-600 hover:bg-indigo-700 transition-all px-4 py-2 rounded-md text-sm font-medium"
         onClick={() => {
           props.setCreate(true);
         }}
@@ -64,7 +64,7 @@ const UserProfile = (props) => {
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 characters">
         {data &&
           data.map((el, index) => (
-            <div key={el.id}>
+            <div key={el.id} onClick={() => props.setDetail(true)}>
               <Card title={el.title} text={el.text} />
             </div>
           ))}
@@ -73,7 +73,7 @@ const UserProfile = (props) => {
   );
 
   return (
-    <div className="mx-auto w-11/12 md:w-5/6 lg:w-4/5 xl:w-3/4 mt-12  text-start mb-28">
+    <div className="mx-auto w-11/12 md:w-5/6 lg:w-4/5 xl:w-3/4 mt-12 text-start mb-28">
       <MainComponent />
       {searchBar}
       {Notes}

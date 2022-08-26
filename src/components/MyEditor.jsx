@@ -7,7 +7,7 @@ const MyEditor = (props) => {
 
   const createHTML = () => {
     let split = [];
-    split = textValue.split("\n").join("<br>").split(" ");
+    split = textValue.split("\n").join("<br />").split(" ");
     setChangeHTMLString(() => split.join(" ").toString());
   };
   const send = () => {
@@ -44,7 +44,7 @@ const MyEditor = (props) => {
       <textarea
         className="w-full text-base resize-none bg-transparent outline-none"
         placeholder="Enter your note"
-        style={{ minHeight: 200 }}
+        style={{ minHeight: 250 }}
         value={textValue}
         onChange={(e) => {
           setTextValue(e.target.value);
@@ -61,7 +61,7 @@ const MyEditor = (props) => {
         }}
       ></textarea>
       <button
-        className="bg-indigo-600 hover:bg-indigo-800 px-4 py-2 text-sm font-medium rounded-md"
+        className="bg-indigo-600 hover:bg-indigo-800 -ml-2 px-4 py-2 text-sm font-medium rounded-md mt-2"
         onClick={send}
       >
         Add Note
