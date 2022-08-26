@@ -5,6 +5,7 @@ import "remixicon/fonts/remixicon.css";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import NoteDetails from "./components/NoteDetails";
+import Footer from "./components/Footer";
 function App() {
   const [create, setCreate] = useState(false);
   const [detail, setDetail] = useState(false);
@@ -28,7 +29,7 @@ function App() {
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 exit={{ scale: 0, opacity: 0 }}
-                className="w-2/6 bg-[#161616] h-auto relative rounded-md overflow-hidden"
+                className="w-11/12 md:w-2/6 bg-[#161616] h-auto relative rounded-md overflow-hidden"
               >
                 <MyEditor setCreate={setCreate} />
               </motion.div>
@@ -48,7 +49,7 @@ function App() {
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 exit={{ scale: 0, opacity: 0 }}
-                className="w-2/6 bg-[#161616] h-auto relative rounded-md overflow-hidden"
+                className="w-11/12 md:w-2/6 bg-[#161616] h-auto relative rounded-md overflow-hidden"
               >
                 <NoteDetails setDetail={setDetail} />
               </motion.div>
@@ -57,6 +58,7 @@ function App() {
         </AnimatePresence>
         <Header />
         <UserProfile setCreate={setCreate} setDetail={setDetail} />
+        <Footer />
       </div>
     </div>
   );

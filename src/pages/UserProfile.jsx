@@ -34,7 +34,7 @@ const UserProfile = (props) => {
         <input
           type="text"
           placeholder="Search"
-          className="bg-transparent px-3 py-2 w-64 text-sm text-neutral-200  placeholder:text-neutral-400 outline-none"
+          className="bg-transparent px-3 py-2 w-60 md:w-64 text-sm text-neutral-200  placeholder:text-neutral-400 outline-none"
         />
       </div>
       <button
@@ -50,7 +50,7 @@ const UserProfile = (props) => {
 
   const Notes = (
     <div className="mt-12">
-      <div className="mb-6 flex flex-row items-center gap-x-5">
+      <div className="mb-8 flex flex-row flex-wrap items-center gap-5 ">
         <button className="px-4 py-2 bg-[#282828] rounded-md">
           <h3 className="font-semibold text-sm">Uncompleted</h3>
         </button>
@@ -73,7 +73,7 @@ const UserProfile = (props) => {
   );
 
   return (
-    <div className="mx-auto w-11/12 md:w-5/6 lg:w-4/5 xl:w-3/4 mt-12 text-start mb-28">
+    <div className="mx-auto w-11/12 md:w-5/6 lg:w-4/5 xl:w-3/4 mt-12 text-start mb-20">
       <MainComponent />
       {searchBar}
       {Notes}
