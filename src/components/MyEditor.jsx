@@ -1,7 +1,19 @@
-import React from "react";
-import "react-quill/dist/quill.snow.css";
+import React, { useState } from "react";
 
 const MyEditor = (props) => {
+  const [textValue, setTextValue] = useState("");
+  const [changeHTMLString, setChangeHTMLString] = useState([]);
+  const createHTML = (e) => {
+    if (e.code === "Enter" || e.code === "Space") {
+      let split = [];
+      split = e.target.value.split("\n").join("<br>").split(" ");
+      console.log("Split", split.join(" ").toString());
+    }
+  };
+  const send = () => {
+    console.log(changeHTMLString);
+  };
+
   return (
     <div className="p-5">
       <div>
@@ -36,9 +48,26 @@ const MyEditor = (props) => {
           <textarea
             className="w-full text-base resize-none bg-transparent outline-none"
             placeholder="Enter your note"
-            style={{ minHeight: 300 }}
+            style={{ minHeight: 100 }}
+            value={textValue}
+            onChange={(e) => {
+              setTextValue(e.target.value);
+            }}
+            onKeyPress={(e) => {
+              if (e.code === "Space") {
+                createHTML(e);
+              } else if (e.key === "Enter") {
+                createHTML(e);
+              }
+            }}
+            onMouseMove={(e) => {
+              // createHTML(e.target.value);
+            }}
           ></textarea>
-          <button className="bg-indigo-600 hover:bg-indigo-800 px-4 py-1 rounded-md">
+          <button
+            className="bg-indigo-600 hover:bg-indigo-800 px-4 py-1 rounded-md"
+            onClick={send}
+          >
             Add Note
           </button>
         </div>

@@ -6,25 +6,3 @@
 body {
   overflow: hidden;
 }
-
-.ql-snow {
-  border: none !important;
-  font-size: 16px !important;
-}
-.ql-snow .ql-picker {
-  color: #ddd;
-}
-.ql-snow .ql-stroke {
-  stroke: #ddd;
-}
-.ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-options {
-  border: none;
-}
-.ql-snow .ql-picker-options {
-  background-color: #181818;
-  color: #ddd;
-  border: none;
-}
-.ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-label {
-  border: none;
-}
