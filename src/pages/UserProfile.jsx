@@ -3,7 +3,7 @@ import MainComponent from "../components/MainComponent";
 import { itemData } from "../CardData";
 const Card = (props) => {
   return (
-    <div className="border border-neutral-500 bg-[#202020] px-5 pt-5 pb-2 rounded-md">
+    <div className="border-2 border-[#303030] bg-[#222] px-5 pt-5 pb-2 rounded-md">
       <div className="flex flex-row justify-between items-center mb-4">
         <h4 className="text-base font-medium">{props.title}</h4>
         <span className="text-neutral-400" style={{ fontSize: 12 }}>
@@ -28,17 +28,17 @@ const UserProfile = (props) => {
   const [data, setData] = useState(itemData);
 
   const searchBar = (
-    <div className="mt-20 flex flex-row justify-start items-center gap-x-5">
-      <div className="border border-neutral-500 rounded-md flex flex-row items-center">
+    <div className="mt-20 flex flex-row justify-start items-center">
+      <div className="border border-neutral-500 rounded-md rounded-r-none border-r-0 flex flex-row items-center">
         <i className="ri-search-line ml-3 text-sm text-neutral-400"></i>
         <input
           type="text"
           placeholder="Search"
-          className="bg-transparent px-3 py-3 w-80 text-sm text-neutral-200  placeholder:text-neutral-400 rounded-md outline-none"
+          className="bg-transparent px-3 py-2 w-80 text-sm text-neutral-200  placeholder:text-neutral-400 outline-none"
         />
       </div>
       <button
-        className="bg-indigo-600 px-4 py-2 rounded-md text-base"
+        className=" border border-indigo-600 bg-indigo-600 hover:bg-indigo-700 transition-all px-4 py-2 rounded-md rounded-l-none text-sm font-medium"
         onClick={() => {
           props.setCreate(true);
         }}
@@ -50,7 +50,17 @@ const UserProfile = (props) => {
 
   const Notes = (
     <div className="mt-12">
-      <h3 className="mb-6 font-semibold">Total Notes</h3>
+      <div className="mb-6 flex flex-row items-center gap-x-5">
+        <button className="px-4 py-2 bg-[#282828] rounded-md">
+          <h3 className="font-semibold text-sm">Uncompleted</h3>
+        </button>
+        <button className="px-4 py-2 bg-[#282828] rounded-md">
+          <h3 className="font-semibold text-sm">Completed</h3>
+        </button>
+        <button className="px-4 py-2 bg-[#282828] rounded-md">
+          <h3 className="font-semibold text-sm">Deleted Notes</h3>
+        </button>
+      </div>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 characters">
         {data &&
           data.map((el, index) => (
@@ -63,7 +73,7 @@ const UserProfile = (props) => {
   );
 
   return (
-    <div className="mx-auto w-11/12 md:w-5/6 lg:w-4/5 xl:w-3/4 mt-12  text-start mb-44">
+    <div className="mx-auto w-11/12 md:w-5/6 lg:w-4/5 xl:w-3/4 mt-12  text-start mb-28">
       <MainComponent />
       {searchBar}
       {Notes}
