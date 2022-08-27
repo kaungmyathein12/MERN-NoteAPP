@@ -27,10 +27,11 @@ function App() {
     });
     dispatch(onAuthStateChange(res.data.user));
   };
-
   useEffect(() => {
     const token = localStorage.getItem("jwtToken");
-    if (token) fetchCurrentUser(token);
+    if (token) {
+      fetchCurrentUser(token);
+    }
     dispatch(onAuthStateChange(null));
   }, []);
   return (

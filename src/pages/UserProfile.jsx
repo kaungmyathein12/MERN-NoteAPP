@@ -1,6 +1,7 @@
 import { useState } from "react";
 import MainComponent from "../components/MainComponent";
 import { itemData } from "../CardData";
+import axios from "axios";
 const Card = (props) => {
   return (
     <div className="border-2 border-[#303030] bg-[#222] px-5 pt-5 pb-2 rounded-md">
@@ -26,6 +27,9 @@ const Card = (props) => {
 };
 const UserProfile = (props) => {
   const [data, setData] = useState(itemData);
+  const fechNoteData = async () => {
+    const res = await axios("http://localhost:4000/notes/");
+  };
 
   const searchBar = (
     <div className="mt-20 flex flex-row justify-start items-center gap-x-2">
@@ -47,7 +51,6 @@ const UserProfile = (props) => {
       </button>
     </div>
   );
-
   const Notes = (
     <div className="mt-12">
       <div className="mb-8 flex flex-row flex-wrap items-center gap-5 ">
@@ -71,7 +74,6 @@ const UserProfile = (props) => {
       </div>
     </div>
   );
-
   return (
     <div className="mx-auto w-11/12 md:w-5/6 lg:w-4/5 xl:w-3/4 mt-12 text-start mb-20">
       <MainComponent />
