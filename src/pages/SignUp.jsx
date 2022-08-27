@@ -1,9 +1,21 @@
+import axios from "axios";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { login } from "../redux/features/userSlice";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+  const submit = async () => {
+    const data = {
+      email,
+      password,
+    };
+    const res = await axios.post("http://localhost:4000/users/register", data);
+    dispatch(login(res.data.jwtToken));
+  };
   return (
     <div className="h-full grid place-items-center">
       <div className="w-11/12 md:w-2/5 xl:w-3/12 bg-[#191919] px-4 py-6 rounded-md">
@@ -25,7 +37,10 @@ const SignUp = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button className="w-full bg-indigo-600 hover:bg-indigo-700 transition-all py-2 text-white font-medium rounded-md">
+        <button
+          className="w-full bg-indigo-600 hover:bg-indigo-700 transition-all py-2 text-white font-medium rounded-md"
+          onClick={submit}
+        >
           Sign Up
         </button>
         <div className="text-center mt-4 text-neutral-400 text-sm underline">
