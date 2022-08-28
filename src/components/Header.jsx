@@ -1,8 +1,19 @@
+import { useDispatch } from "react-redux";
+import { logout } from "../redux/features/userSlice";
+
 const Header = () => {
+  const dispatch = useDispatch();
   const links = (
     <ul className="flex flex-row items-center gap-x-8 text-sm">
       <li>Source Code</li>
-      <li className="text-neutral-400 font-medium">Logout</li>
+      <li
+        className="text-neutral-400 hover:text-neutral-300 transition-all font-medium cursor-pointer"
+        onClick={() => {
+          dispatch(logout());
+        }}
+      >
+        Logout
+      </li>
     </ul>
   );
 
