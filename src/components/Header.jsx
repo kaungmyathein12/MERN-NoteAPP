@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux";
 import { logout } from "../redux/features/userSlice";
+import React from "react";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -7,7 +8,7 @@ const Header = () => {
     <ul className="flex flex-row items-center gap-x-8 text-sm">
       <li>Source Code</li>
       <li
-        className="text-neutral-400 hover:text-neutral-300 transition-all font-medium cursor-pointer"
+        className="text-neutral-500 hover:text-neutral-300 transition-all font-medium cursor-pointer"
         onClick={() => {
           dispatch(logout());
         }}
@@ -18,11 +19,12 @@ const Header = () => {
   );
 
   return (
-    <header className="shadow shadow-black py-6 sticky top-0 bg-[#151515]">
-      <nav className="mx-auto w-11/12 md:w-5/6 lg:w-4/5 xl:w-3/4 flex flex-row justify-between items-center">
-        <h2 className="font-semibold text-lg text-black bg-white px-2">
-          NoteApp
-        </h2>
+    <header className="sticky top-0 py-6">
+      <nav className="w-11/12 md:w-5/6 lg:w-4/5 xl:w-3/4 flex flex-row justify-between items-center mx-auto">
+        <div className={"flex flex-row items-center"}>
+          <i className="ri-bookmark-fill text-xl text-blue-600 mr-2"></i>
+          <h3 className="font-bold text-xl text-emerald-500">React Note</h3>
+        </div>
         {links}
       </nav>
     </header>
