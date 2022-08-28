@@ -3,8 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   authStateChange: false,
   currentUser: null,
-  totalNotes: 0,
-  deletedNote: 0,
+  jwtToken: null,
 };
 
 export const userSlice = createSlice({
@@ -13,26 +12,20 @@ export const userSlice = createSlice({
   reducers: {
     onAuthStateChange: (state, action) => {
       state.authStateChange = true;
-      state.currentUser = action.payload;
+      state.currentUser = action.payload.user;
+      state.jwtToken = action.payload.token;
     },
     login: (state, action) => {
       localStorage.setItem("jwtToken", action.payload);
       state.authStateChange = true;
     },
-    logout: () => {
+    logout: (state) => {
       localStorage.removeItem("jwtToken");
-      window.location.reload();
-    },
-    setTotalNote: (state, action) => {
-      state.totalNotes = action.payload;
-    },
-    setDeletedNote: (state) => {
-      state.deletedNote = state.deletedNote + 1;
+      state.jwtToken = null;
     },
   },
 });
 
-export const { onAuthStateChange, login, logout, setTotalNote } =
-  userSlice.actions;
+export const { onAuthStateChange, login, logout } = userSlice.actions;
 
 export default userSlice.reducer;

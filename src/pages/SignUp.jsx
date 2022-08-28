@@ -29,7 +29,7 @@ const SignUp = () => {
   };
   return (
     <div className="h-full grid place-items-center">
-      <div className="w-11/12 md:w-2/5 xl:w-3/12 bg-[#fafafa] px-6 pt-6 pb-8 rounded shadow">
+      <div className="w-11/12 md:w-2/5 xl:w-3/12 bg-[#fff] px-6 pt-6 pb-8 rounded shadow">
         <div className={"flex flex-row items-center gap-x-2"}>
           <i className="ri-bookmark-fill text-xl text-blue-600"></i>
           <h3 className="font-bold text-xl text-emerald-500">React Note</h3>
@@ -42,8 +42,10 @@ const SignUp = () => {
           <input
             type="email"
             id="email"
-            className="w-full bg-[#ececec] outline-none rounded mt-2 p-2"
+            className="w-full bg-[#efefef] outline-none rounded mt-2 p-2"
             autoComplete={"off"}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
         <div className={"mb-4"}>
@@ -53,14 +55,17 @@ const SignUp = () => {
           <input
             type="password"
             id="password"
-            className="w-full bg-[#ececec] outline-none rounded mt-2 p-2"
+            className="w-full bg-[#efefef] outline-none rounded mt-2 p-2"
             autoComplete={"off"}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </div>
         <button
           className={
             "w-full bg-blue-500 hover:bg-blue-600 font-semibold text-white rounded transition-all mb-3 p-2"
           }
+          onClick={submit}
         >
           Sign up
         </button>
