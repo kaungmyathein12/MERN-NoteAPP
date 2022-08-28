@@ -1,15 +1,18 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { login } from "../redux/features/userSlice";
+import { RiLoader4Fill } from "react-icons/ri";
 
 const SignUp = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const submit = async () => {
+    setIsLoading(true);
     try {
       const apiKey = import.meta.env.VITE_REACT_API_URL;
       const data = {
@@ -22,9 +25,10 @@ const SignUp = () => {
         },
       });
       dispatch(login(res.data.jwtToken));
-      window.location.reload();
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
+      setIsLoading(false);
     }
   };
   return (
@@ -62,12 +66,18 @@ const SignUp = () => {
           />
         </div>
         <button
+          disabled={isLoading}
           className={
-            "w-full bg-blue-500 hover:bg-blue-600 font-semibold text-white rounded transition-all mb-3 p-2"
+            "w-full bg-blue-500 hover:bg-blue-600 font-semibold text-white rounded transition-all mb-3 p-2 " +
+            (isLoading && "bg-blue-300 hover:bg-blue-300")
           }
           onClick={submit}
         >
-          Sign up
+          {isLoading ? (
+            <RiLoader4Fill className={"animate-spin mx-auto my-1"} />
+          ) : (
+            "Sign up"
+          )}
         </button>
         <div className={"text-sm text-neutral-500 text-center underline"}>
           <Link to="/login">Already have an account?</Link>

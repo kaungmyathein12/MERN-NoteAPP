@@ -3,22 +3,30 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "../redux/features/userSlice";
 import { Link, useNavigate } from "react-router-dom";
+import { RiLoader4Fill } from "react-icons/ri";
 
 const Login = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const submit = async () => {
-    const apiKey = import.meta.env.VITE_REACT_API_URL;
-    const data = {
-      email,
-      password,
-    };
-    const res = await axios.post(`${apiKey}/users/login`, data);
-    dispatch(login(res.data.jwtToken));
-    navigate("/");
+    setIsLoading(true);
+    try {
+      const apiKey = import.meta.env.VITE_REACT_API_URL;
+      const data = {
+        email,
+        password,
+      };
+      const res = await axios.post(`${apiKey}/users/login`, data);
+      dispatch(login(res.data.jwtToken));
+      setIsLoading(false);
+    } catch (e) {
+      setIsLoading(false);
+      console.log(e);
+    }
   };
   return (
     <div className="h-full grid place-items-center">
@@ -55,12 +63,18 @@ const Login = () => {
           />
         </div>
         <button
+          disabled={isLoading}
           className={
-            "w-full bg-blue-500 hover:bg-blue-600 font-semibold text-white rounded transition-all mb-3 p-2"
+            "w-full bg-blue-500 hover:bg-blue-600 font-semibold text-white rounded transition-all mb-3 p-2 " +
+            (isLoading && "bg-blue-300 hover:bg-blue-300")
           }
           onClick={submit}
         >
-          Login
+          {isLoading ? (
+            <RiLoader4Fill className={"animate-spin mx-auto my-1"} />
+          ) : (
+            "Login"
+          )}
         </button>
         <div className={"text-sm text-neutral-500 text-center underline"}>
           <Link to="/register">Create an account</Link>

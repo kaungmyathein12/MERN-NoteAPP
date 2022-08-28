@@ -44,8 +44,8 @@ const Create = () => {
             "bg-emerald-100 text-emerald-600 font-semibold rounded p-3 mb-4"
           }
         >
-          Congraulations! You created a new blog. Let's go back to the Home
-          Page. :)
+          Congraulations! You've just created a new blog. Let's go back to the
+          Home Page. :)
         </div>
       )}
       {error && (

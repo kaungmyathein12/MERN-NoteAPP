@@ -15,6 +15,8 @@ import axios from "axios";
 import { useEffect } from "react";
 import { onAuthStateChange } from "./redux/features/userSlice.js";
 import Create from "./pages/Create.jsx";
+import Detail from "./pages/Detail.jsx";
+import Update from "./pages/Update.jsx";
 
 function App() {
   const { authStateChange, currentUser } = useSelector((state) => state.users);
@@ -33,7 +35,7 @@ function App() {
     if (token) {
       const app = fetchData(token);
     } else {
-      dispatch(onAuthStateChange(null));
+      dispatch(onAuthStateChange({ user: null }));
     }
   }, []);
   return (
@@ -49,6 +51,14 @@ function App() {
             <Route
               path="/create"
               element={currentUser ? <Create /> : <Navigate to={"/login"} />}
+            />
+            <Route
+              path="/notes/detail/:id"
+              element={currentUser ? <Detail /> : <Navigate to={"/login"} />}
+            />
+            <Route
+              path="/notes/update/:id"
+              element={currentUser ? <Update /> : <Navigate to={"/login"} />}
             />
             <Route
               path="/login"

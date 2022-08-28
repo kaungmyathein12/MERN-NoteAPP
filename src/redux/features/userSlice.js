@@ -13,15 +13,21 @@ export const userSlice = createSlice({
     onAuthStateChange: (state, action) => {
       state.authStateChange = true;
       state.currentUser = action.payload.user;
-      state.jwtToken = action.payload.token;
+      if (action.payload.user === null) {
+        state.jwtToken = null;
+      } else {
+        state.jwtToken = action.payload.token;
+      }
     },
     login: (state, action) => {
       localStorage.setItem("jwtToken", action.payload);
       state.authStateChange = true;
+      window.location.reload();
     },
     logout: (state) => {
       localStorage.removeItem("jwtToken");
       state.jwtToken = null;
+      window.location.reload();
     },
   },
 });

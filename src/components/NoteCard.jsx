@@ -1,7 +1,7 @@
 import parse from "html-react-parser";
+import { Link } from "react-router-dom";
 
 const NoteCard = (props) => {
-  console.log(props);
   return (
     <div className={"border rounded px-5 py-4"}>
       <div className={"flex flex-row justify-between items-center mb-4"}>
@@ -14,16 +14,20 @@ const NoteCard = (props) => {
         </div>
       </div>
       <div className={"h-24 mb-4 overflow-hidden"}>
-        <p className={"text-sm text-neutral-500 leading-relaxed"}>
+        <div className={"text-sm text-neutral-500 leading-relaxed"}>
           {parse(props.data.description)}
-        </p>
+        </div>
       </div>
       <div>
-        <button
-          className={"bg-blue-500 font-semibold text-white rounded px-4 py-1"}
-        >
-          Read
-        </button>
+        <Link to={`notes/detail/${props.data._id}`}>
+          <button
+            className={
+              "bg-blue-500 hover:bg-blue-600 font-semibold text-white transition-all rounded px-4 py-1"
+            }
+          >
+            Read
+          </button>
+        </Link>
       </div>
     </div>
   );

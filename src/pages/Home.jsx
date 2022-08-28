@@ -1,18 +1,25 @@
 import pf from "./../img/pf.png";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import NoteCard from "../components/NoteCard.jsx";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import parse from "html-react-parser";
+import AnimatedNoteCard from "../components/AnimatedNoteCard.jsx";
 
 const Home = () => {
   const { currentUser, jwtToken } = useSelector((state) => state.users);
-  const naviagte = useNavigate();
-
+  const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
+  const [error, setError] = useState(false);
   const ProfileCreateSearch = (
-    <div className={"flex flex-row justify-between items-center mb-14"}>
+    <div
+      className={
+        "flex flex-col md:flex-row justify-between items-center gap-y-8 md:gap-0 mb-14"
+      }
+    >
+      {/* Profile and Create Btn */}
       <div className={"flex flex-row items-center"}>
         <div className={"flex flex-row items-center mr-6"}>
           <img
@@ -29,21 +36,23 @@ const Home = () => {
             </span>
           </div>
         </div>
-        <button
-          className={
-            "bg-emerald-500 hover:bg-emerald-600 font-medium text-white transition-all rounded-full px-5 py-2"
-          }
-          onClick={() => naviagte("/create")}
-        >
-          Create
-        </button>
+        <Link to={"/create"}>
+          <button
+            className={
+              "bg-emerald-500 hover:bg-emerald-600 font-medium text-white transition-all rounded-full px-5 py-2"
+            }
+          >
+            Create
+          </button>
+        </Link>
       </div>
+      {/* Search Bar */}
       <div className={"flex flex-row"}>
         <div className={" flex flex-row items-center border rounded mr-4 px-3"}>
           <i className="ri-search-line"></i>
           <input
             type="text"
-            className={"w-60 bg-transparent outline-0 p-2 py-2"}
+            className={"w-48 lg:w-60 bg-transparent outline-0 p-2 py-2"}
             placeholder={"Search"}
           />
         </div>
@@ -59,6 +68,7 @@ const Home = () => {
   );
   const apiKey = import.meta.env.VITE_REACT_API_URL;
   const fetchDataByCurrentUser = async () => {
+    setIsLoading(true);
     try {
       const res = await axios.get(`${apiKey}/notes/`, {
         headers: {
@@ -66,8 +76,11 @@ const Home = () => {
         },
       });
       setData(res.data.notes);
+      setIsLoading(false);
     } catch (e) {
       console.log(e);
+      setError(true);
+      setIsLoading(false);
     }
   };
   useEffect(() => {
@@ -75,13 +88,41 @@ const Home = () => {
   }, []);
 
   return (
-    <div className={"w-11/12 md:w-5/6 lg:w-4/5 xl:w-3/4 mx-auto mt-8"}>
+    <div className={"w-11/12 lg:w-4/5 xl:w-3/4 mx-auto mt-8"}>
       {ProfileCreateSearch}
-      <div className={"grid grid-cols-3 gap-8"}>
-        {data &&
+      <div className={"grid  md:grid-cols-3 gap-8"}>
+        {isLoading && !error && (
+          <>
+            <AnimatedNoteCard />
+            <AnimatedNoteCard />
+            <AnimatedNoteCard />
+          </>
+        )}
+        {!isLoading &&
+          !error &&
+          data &&
           data.length > 0 &&
           data.map((el) => <NoteCard key={el._id} data={el} />)}
       </div>
+      {!isLoading && !error && data && data.length < 1 && (
+        <div
+          className={
+            "bg-blue-100 font-medium text-blue-800 border-l-8 border-l-blue-700 rounded p-3"
+          }
+        >
+          There ara no blogs to display here. Please click create button and
+          create one.
+        </div>
+      )}
+      {!isLoading && error && (
+        <div
+          className={
+            "bg-rose-100 font-medium text-rose-800 border-l-8 border-l-rose-700 rounded p-3"
+          }
+        >
+          Something is wrong! Please refresh the page again. :(
+        </div>
+      )}
     </div>
   );
 };
