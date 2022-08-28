@@ -2,20 +2,19 @@ import pf from "./../img/pf.png";
 const Card = (props) => {
   return (
     <div className={"border rounded px-5 py-4"}>
-      <div className={"flex flex-row justify-between items-center"}>
+      <div className={"flex flex-row justify-between items-center mb-4"}>
         <h3 className={"font-semibold text-lg text-neutral-600"}>Today Task</h3>
         <div className={"font-bold text-neutral-400"}>
           <i className="ri-more-2-fill -mr-2"></i>
           <i className="ri-more-2-fill"></i>
         </div>
       </div>
-      <div className={"h-24 items-center overflow-hidden my-4 mb-3"}>
+      <div className={"h-24 mb-4 overflow-hidden"}>
         <p className={"text-sm text-neutral-500 leading-relaxed"}>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias
-          architecto culpa deserunt ea eius eligendi error eveniet ipsa maxime
-          mollitia pariatur porro sequi Lorem ipsum dolor sit amet, consectetur
-          adipisicing elit. Alias architecto culpa deserunt ea eius eligendi
-          error eveniet ipsa maxime mollitia pariatur porro sequi
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloremque
+          exercitationem harum, ipsa laborum tempora vel voluptatem? Cum
+          cupiditate dolorum ea eum ex facere impedit laboriosam, laborum libero
+          nobis perspiciatis placeat.
         </p>
       </div>
       <div>
@@ -78,6 +77,12 @@ const Home = () => {
     <div className={"w-11/12 md:w-5/6 lg:w-4/5 xl:w-3/4 mx-auto mt-8"}>
       {ProfileCreateSearch}
       <div className={"grid grid-cols-3 gap-8"}>
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
         <Card />
         <Card />
         <Card />

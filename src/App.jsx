@@ -11,13 +11,14 @@ import "remixicon/fonts/remixicon.css";
 import axios from "axios";
 import Header from "./components/Header.jsx";
 import Home from "./pages/Home.jsx";
+import Footer from "./components/Footer.jsx";
 
 function App() {
   const { authStateChange, currentUser } = useSelector((state) => state.users);
   const dispatch = useDispatch();
 
   return (
-    <div className="App bg-[#fff] h-screen">
+    <div className="App bg-[#fff] h-screen overflow-y-auto">
       {/*<BrowserRouter>*/}
       {/*  <Routes>*/}
       {/*    <Route path="/login" element={<Login />} />*/}
@@ -26,6 +27,7 @@ function App() {
       {/*</BrowserRouter>*/}
       <Header />
       <Home />
+      <Footer />
     </div>
   );
 }
