@@ -9,9 +9,11 @@ const SignUp = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const submit = async () => {
+  const submit = async (e) => {
+    e.preventDefault();
     setIsLoading(true);
     try {
       const apiKey = import.meta.env.VITE_REACT_API_URL;
@@ -19,16 +21,13 @@ const SignUp = () => {
         email,
         password,
       };
-      const res = await axios.post(`${apiKey}/users/register`, data, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const res = await axios.post(`${apiKey}/users/register`, data);
       dispatch(login(res.data.jwtToken));
       setIsLoading(false);
     } catch (error) {
-      console.log(error);
       setIsLoading(false);
+      setError(error.response.data.error);
+      console.log(error.response.data.error);
     }
   };
   return (
@@ -39,6 +38,15 @@ const SignUp = () => {
           <h3 className="font-bold text-xl text-emerald-500">React Note</h3>
         </div>
         <hr className={"my-3"} />
+        {error && (
+          <div
+            className={
+              "mb-3 bg-rose-100 font-semibold text-sm text-center text-rose-700 rounded py-3"
+            }
+          >
+            {error}
+          </div>
+        )}
         <div className={"mb-3"}>
           <label htmlFor="email" className={"text-sm text-neutral-500"}>
             Enter your email
@@ -50,6 +58,7 @@ const SignUp = () => {
             autoComplete={"off"}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required
           />
         </div>
         <div className={"mb-4"}>
@@ -63,6 +72,7 @@ const SignUp = () => {
             autoComplete={"off"}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
           />
         </div>
         <button

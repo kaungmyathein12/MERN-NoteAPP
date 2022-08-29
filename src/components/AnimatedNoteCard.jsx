@@ -4,7 +4,7 @@ const AnimatedNoteCard = () => {
       <div className="h-6 bg-neutral-200 animate-pulse mt-1 mb-5"></div>
       <div className="mb-5">
         <div className={"h-4 bg-neutral-200 animate-pulse mb-2"}></div>
-        <div className={"w-60 h-4 bg-neutral-200 animate-pulse mb-2"}></div>
+        <div className={"w-3/5 h-4 bg-neutral-200 animate-pulse mb-2"}></div>
         <div className={"h-4 bg-neutral-200 animate-pulse mb-2"}></div>
         <div className={"h-4 bg-neutral-200 animate-pulse mb-2"}></div>
       </div>

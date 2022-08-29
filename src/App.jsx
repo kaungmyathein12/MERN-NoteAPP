@@ -22,13 +22,18 @@ function App() {
   const { authStateChange, currentUser } = useSelector((state) => state.users);
   const dispatch = useDispatch();
   const fetchData = async (token) => {
-    const apiKey = import.meta.env.VITE_REACT_API_URL;
-    const res = await axios.get(`${apiKey}/users/me`, {
-      headers: {
-        "auth-token": token,
-      },
-    });
-    dispatch(onAuthStateChange({ token, user: res.data.user }));
+    try {
+      const apiKey = import.meta.env.VITE_REACT_API_URL;
+      const res = await axios.get(`${apiKey}/users/me`, {
+        headers: {
+          "auth-token": token,
+        },
+      });
+      dispatch(onAuthStateChange({ token, user: res.data.user }));
+    } catch (e) {
+      localStorage.removeItem("jwtToken");
+      dispatch(onAuthStateChange({ user: null }));
+    }
   };
   useEffect(() => {
     const token = localStorage.getItem("jwtToken");

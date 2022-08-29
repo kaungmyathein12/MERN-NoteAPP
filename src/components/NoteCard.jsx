@@ -1,10 +1,11 @@
 import parse from "html-react-parser";
 import { Link } from "react-router-dom";
+import moment from "moment";
 
 const NoteCard = (props) => {
   return (
     <div className={"border rounded px-5 py-4"}>
-      <div className={"flex flex-row justify-between items-center mb-4"}>
+      <div className={"flex flex-row justify-between items-center"}>
         <h3 className={"font-semibold text-lg text-neutral-600"}>
           {props.data.title}
         </h3>
@@ -12,6 +13,11 @@ const NoteCard = (props) => {
           <i className="ri-more-2-fill -mr-2"></i>
           <i className="ri-more-2-fill"></i>
         </div>
+      </div>
+      <div className={"mb-3"}>
+        <span className={"font-medium text-xs text-emerald-500"}>
+          {moment(props.data.createdAt).fromNow()}
+        </span>
       </div>
       <div className={"h-24 mb-4 overflow-hidden"}>
         <div className={"text-sm text-neutral-500 leading-relaxed"}>

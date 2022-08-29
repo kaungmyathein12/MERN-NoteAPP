@@ -10,15 +10,18 @@ const Detail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [data, setData] = useState();
+  const [isBlogLoading, setIsBlogLoading] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const apiKey = import.meta.env.VITE_REACT_API_URL;
   const fetchDataById = async () => {
+    setIsBlogLoading(true);
     const res = await axios.get(`${apiKey}/notes/${id}`, {
       headers: {
         "auth-token": jwtToken,
       },
     });
     setData(res.data.note);
+    setIsBlogLoading(false);
   };
 
   const deleteNote = async () => {
@@ -41,7 +44,17 @@ const Detail = () => {
   }, []);
   return (
     <div className={"w-11/12 md:w-5/6 lg:w-4/5 xl:w-2/4 mx-auto mt-8 p-5"}>
-      {data && (
+      {isBlogLoading && (
+        <div className={"mb-2 animate-pulse"}>
+          <div className={"h-5 bg-neutral-200 mb-2"}></div>
+          <div className={"w-20 h-4 bg-neutral-200 mb-6"}></div>
+          <div className={"h-4 bg-neutral-200 mb-2"}></div>
+          <div className={"h-4 bg-neutral-200 mb-2"}></div>
+          <div className={"h-4 bg-neutral-200 mb-2"}></div>
+          <div className={"h-4 bg-neutral-200 mb-2"}></div>
+        </div>
+      )}
+      {!isBlogLoading && data && (
         <>
           <div className={"flex flex-row items-start justify-between mb-1"}>
             <h2 className={"font-semibold text-xl text-neutral-600"}>

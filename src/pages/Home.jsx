@@ -1,29 +1,48 @@
-import pf from "./../img/pf.png";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import NoteCard from "../components/NoteCard.jsx";
 import { useSelector } from "react-redux";
 import moment from "moment";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import parse from "html-react-parser";
 import AnimatedNoteCard from "../components/AnimatedNoteCard.jsx";
+import { RiLoader4Fill } from "react-icons/ri";
 
 const Home = () => {
   const { currentUser, jwtToken } = useSelector((state) => state.users);
+  const [search, setSearch] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
   const [error, setError] = useState(false);
+
+  const apiKey = import.meta.env.VITE_REACT_API_URL;
+
+  const searchByName = async () => {
+    setIsLoading(true);
+    try {
+      const res = await axios.get(`${apiKey}/notes/search?name=${search}`, {
+        headers: {
+          "auth-token": jwtToken,
+        },
+      });
+      setData(res.data.notes);
+      setIsLoading(false);
+      setSearch("");
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   const ProfileCreateSearch = (
     <div
       className={
-        "flex flex-col md:flex-row justify-between items-center gap-y-8 md:gap-0 mb-14"
+        "flex flex-col md:flex-row justify-between md:items-center gap-y-8 md:gap-0 mb-14"
       }
     >
       {/* Profile and Create Btn */}
       <div className={"flex flex-row items-center"}>
         <div className={"flex flex-row items-center mr-6"}>
           <img
-            src={pf}
+            src={currentUser.image}
             alt="profileImage"
             className="border w-12 h-12 rounded-full"
           />
@@ -54,19 +73,26 @@ const Home = () => {
             type="text"
             className={"w-48 lg:w-60 bg-transparent outline-0 p-2 py-2"}
             placeholder={"Search"}
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
           />
         </div>
         <button
           className={
             "bg-blue-500 hover:bg-blue-600 font-medium text-white transition-all rounded px-6"
           }
+          onClick={searchByName}
         >
-          Search
+          {isLoading ? (
+            <RiLoader4Fill className={"animate-spin mx-auto mx-3"} />
+          ) : (
+            "Search"
+          )}
         </button>
       </div>
     </div>
   );
-  const apiKey = import.meta.env.VITE_REACT_API_URL;
+
   const fetchDataByCurrentUser = async () => {
     setIsLoading(true);
     try {
@@ -110,7 +136,7 @@ const Home = () => {
             "bg-blue-100 font-medium text-blue-800 border-l-8 border-l-blue-700 rounded p-3"
           }
         >
-          There ara no blogs to display here. Please click create button and
+          There are no blogs to display here. Please click create button and
           create one.
         </div>
       )}

@@ -20,7 +20,7 @@ const Create = () => {
         title: titleRef.current.value,
         description: editorRef.current.getContent(),
       };
-      const res = await axios.post(`${apikey}/notes/create`, data, {
+      await axios.post(`${apikey}/notes/create`, data, {
         headers: {
           "auth-token": jwtToken,
         },
@@ -30,6 +30,7 @@ const Create = () => {
     } catch (e) {
       setError(e);
       console.log(e);
+      setIsLoading(false);
     }
   };
   useEffect(() => {
@@ -50,9 +51,7 @@ const Create = () => {
       )}
       {error && (
         <div
-          className={
-            "bg-emerald-100 text-emerald-600 font-semibold rounded p-3 mb-4"
-          }
+          className={"bg-rose-100 text-rose-600 font-semibold rounded p-3 mb-4"}
         >
           Something is wrong! Please try again. :(
         </div>
@@ -60,6 +59,7 @@ const Create = () => {
       <div>
         <input
           type={"text"}
+          disabled={isLoading}
           placeholder={"Enter your title"}
           className={
             "w-full text-lg border shadow outline-0 rounded mb-5 px-4 py-2"
@@ -72,6 +72,7 @@ const Create = () => {
             return (editorRef.current = editor);
           }}
           initialValue="Enter your Text"
+          disabled={isLoading}
           init={{
             menubar: false,
           }}

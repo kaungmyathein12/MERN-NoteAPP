@@ -7,7 +7,14 @@ const Header = () => {
   const dispatch = useDispatch();
   const links = (
     <ul className="flex flex-row items-center gap-x-8 text-sm">
-      <li>Source Code</li>
+      <li
+        className={"cursor-pointer"}
+        onClick={() =>
+          window.open("https://github.com/kaungmyathein12/MERN-NoteAPP")
+        }
+      >
+        Source Code
+      </li>
       <li
         className="text-neutral-500 hover:text-neutral-300 transition-all font-medium cursor-pointer"
         onClick={() => {
