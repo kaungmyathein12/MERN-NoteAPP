@@ -35,7 +35,7 @@ const SignUp = () => {
       <div className="w-11/12 md:w-2/5 xl:w-3/12 bg-[#fff] px-6 pt-6 pb-8 rounded shadow">
         <div className={"flex flex-row items-center gap-x-2"}>
           <i className="ri-bookmark-fill text-xl text-blue-600"></i>
-          <h3 className="font-bold text-xl text-emerald-500">React Note</h3>
+          <h3 className="font-bold text-xl text-emerald-500">CRUDWEB</h3>
         </div>
         <hr className={"my-3"} />
         {error && (
