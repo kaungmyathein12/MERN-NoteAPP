@@ -59,7 +59,7 @@ const Login = () => {
             autoComplete={"off"}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            required={true}
+            required
           />
         </div>
         <div className={"mb-4"}>
@@ -73,7 +73,7 @@ const Login = () => {
             autoComplete={"off"}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            required={true}
+            required
           />
         </div>
         <button
